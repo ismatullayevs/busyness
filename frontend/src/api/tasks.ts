@@ -1,6 +1,6 @@
 import type { Task, TaskCreate, TaskUpdate, TaskWithLogs, TaskLog, TaskLogCreate } from '../types/task';
 
-const API_BASE = '/api/tasks';
+const API_BASE = (import.meta.env.VITE_API_URL || '') + '/api/tasks';
 
 function getAuthHeaders(): HeadersInit {
   const token = localStorage.getItem('token');

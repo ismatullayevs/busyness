@@ -19,7 +19,8 @@ export default function Login() {
     setLoading(true);
 
     try {
-      const endpoint = isRegistering ? '/api/auth/register' : '/api/auth/login';
+      const apiBase = import.meta.env.VITE_API_URL || '';
+      const endpoint = apiBase + (isRegistering ? '/api/auth/register' : '/api/auth/login');
       const body = isRegistering 
         ? JSON.stringify({ email, password })
         : new URLSearchParams({ username: email, password });
@@ -41,7 +42,7 @@ export default function Login() {
 
       if (isRegistering) {
         // After registration, log in automatically
-        const loginRes = await fetch('/api/auth/login', {
+        const loginRes = await fetch(apiBase + '/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams({ username: email, password }),
@@ -121,7 +122,8 @@ export default function Login() {
             onSuccess={async (credentialResponse) => {
               try {
                 setLoading(true);
-                const res = await fetch('/api/auth/google', {
+                const apiBase = import.meta.env.VITE_API_URL || '';
+                const res = await fetch(apiBase + '/api/auth/google', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({ token: credentialResponse.credential }),

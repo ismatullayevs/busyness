@@ -4,6 +4,7 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     database_url: str = "postgresql://busyness:busyness@db:5432/busyness"
     jwt_secret: str = "your-secret-key-change-this-in-production"
+    app_url: str = "http://localhost:5173"
 
     @property
     def sqlalchemy_database_url(self) -> str:
